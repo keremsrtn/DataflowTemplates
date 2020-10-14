@@ -274,7 +274,7 @@ public class PubSubToBigQuery {
                     .withExtendedErrorInfo()
                     .withMethod(BigQueryIO.Write.Method.STREAMING_INSERTS)
                     .withFailedInsertRetryPolicy(InsertRetryPolicy.retryTransientErrors())
-                    .to("codeway-data-platform:events.test_template");
+                    .to("codeway-data-platform:events.test_template"));
 
     /*
      * Step 3 Contd.
