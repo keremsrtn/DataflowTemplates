@@ -252,9 +252,9 @@ public class PubSubToBigQuery {
               PubsubIO.readMessagesWithAttributes().fromTopic(options.getInputTopic()));
     }
 
-    String destination = messages.getAttribute("app_id");
-
-    destination = destination.split(".", 2);
+    String appID = messages.getAttribute("app_id");
+    String[] arrOfStr = appID.split(".", 3);
+    String destination = darrOfStr[2];
 
     PCollectionTuple convertedTableRows =
         messages
