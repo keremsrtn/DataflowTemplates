@@ -252,6 +252,10 @@ public class PubSubToBigQuery {
               PubsubIO.readMessagesWithAttributes().fromTopic(options.getInputTopic()));
     }
 
+    String destination = messages.getAttribute("app_id")
+
+    destination = destination.split(".", 2)
+
     PCollectionTuple convertedTableRows =
         messages
             /*
@@ -274,7 +278,7 @@ public class PubSubToBigQuery {
                     .withExtendedErrorInfo()
                     .withMethod(BigQueryIO.Write.Method.STREAMING_INSERTS)
                     .withFailedInsertRetryPolicy(InsertRetryPolicy.retryTransientErrors())
-                    .to(messages.getAttribute("app_id").split("@", 2)));
+                    .to("codeway-data-platform:events"+destination));
 
     /*
      * Step 3 Contd.
