@@ -239,12 +239,14 @@ public class PubSubToBigQuery {
      */
 
     PCollection<PubsubMessage> messages = null;
+    
     if (options.getUseSubscription()) {
       messages =
           pipeline.apply(
               "ReadPubSubSubscription",
               PubsubIO.readMessagesWithAttributes()
                   .fromSubscription(options.getInputSubscription()));
+        
     } else {
       messages =
           pipeline.apply(
@@ -254,7 +256,7 @@ public class PubSubToBigQuery {
 
     String appID = messages.getAttribute("app_id");
     String[] arrOfStr = appID.split(".", 3);
-    String destination = darrOfStr[2];
+    String destination = arrOfStr[2];
 
     PCollectionTuple convertedTableRows =
         messages
